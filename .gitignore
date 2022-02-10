@@ -1,0 +1,7 @@
+/composer-test.json
+/composer-test.lock
+/composer.phar
+/.phpunit.result.cache
+/vendor/
+/phpunit.xml
+/.idea/
