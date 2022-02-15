@@ -442,6 +442,20 @@
 			$bucket->estimateAvailability(5);
 			
 		}
+		
+		public function testEstimateAvailability_initializesBucket() {
+			
+			$bucket = new TokenBucket($this->cache, 'b1', 1, 4);
+			
+			// this call should initialize the bucket
+			$this->assertGreaterThan(0, $bucket->estimateAvailability());
+			
+			Carbon::setTestNow(Carbon::now()->addSeconds(2));
+			
+			// this call now should see a filled bucket
+			$this->assertSame(0.0, $bucket->estimateAvailability());
+			
+		}
 
 		public function testResetBucket() {
 

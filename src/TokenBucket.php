@@ -173,7 +173,7 @@
 
 			$now = Carbon::now();
 
-			$state = $this->readState($this->cache, true);
+			$state = $this->readState($this->cache);
 
 			// simulate fill
 			$this->fillBucket($state, $now);
@@ -206,10 +206,9 @@
 		 * Resets the bucket to the given state
 		 * @param Repository $store The cache store
 		 * @param int|null $tokens The number of tokens the bucket holds. If null, the initialTokenCount will be used.
-		 * @param bool $readonly If true, the reset state is not written to the cache
 		 * @return array The bucket state
 		 */
-		protected function resetBucketState(Repository $store, int $tokens = null, bool $readonly = false): array {
+		protected function resetBucketState(Repository $store, int $tokens = null): array {
 
 			if ($tokens === null)
 				$tokens = $this->initialTokenCount;
@@ -219,8 +218,7 @@
 				'fillTs' => Carbon::now()->getTimestamp(),
 			];
 
-			if (!$readonly)
-				$this->writeState($store, $state);
+			$this->writeState($store, $state);
 
 			return $state;
 		}
@@ -228,16 +226,15 @@
 		/**
 		 * Reads the current state from cache
 		 * @param Repository $store The cache store
-		 * @param bool $readonly If true, nothing will ever be written to the cache
 		 * @return array The state
 		 */
-		protected function readState(Repository $store, bool $readonly = false): array {
+		protected function readState(Repository $store): array {
 			$state = $store->get($this->getThrottleKey());
 
 			// reset if no state available or broken
 			if (!is_array($state) || !is_int($state['tokens'] ?? null) || !is_int($state['fillTs'])) {
 
-				$state = $this->resetBucketState($store, null, $readonly);
+				$state = $this->resetBucketState($store);
 			}
 
 			return $state;
