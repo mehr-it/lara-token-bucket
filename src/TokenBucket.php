@@ -145,6 +145,27 @@
 		}
 
 		/**
+		 * Puts the given number of tokens into the bucket. The bucket is filled up to burst size without affecting the rate-timing
+		 * @param int $tokens The number of tokens to put.
+		 * @return $this
+		 */
+		public function putTokens(int $tokens = 1) : TokenBucket {
+			
+			$this->withEventualLock($this->cache, $this->getLockKey(), 3, function () use ($tokens) {
+
+				$state = $this->readState($this->cache);
+				
+				// add tokens
+				$state['tokens'] = min($state['tokens'] + $tokens, $this->burst);
+				
+				$this->writeState($this->cache, $state);
+				
+			});
+			
+			return $this;
+		}
+
+		/**
 		 * Resets the bucket
 		 * @param int|null $tokens The number of tokens the bucket holds. If null, the initialTokenCount will be used.
 		 * @return TokenBucket

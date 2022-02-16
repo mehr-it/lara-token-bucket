@@ -1,7 +1,7 @@
 <?php
 
 	namespace MehrItLaraTokenBucketTest\Cases\Unit;
-	
+
 	use Carbon\Carbon;
 	use Illuminate\Cache\ArrayStore;
 	use Illuminate\Cache\CacheManager;
@@ -22,12 +22,12 @@
 		protected $cache;
 
 		protected function setUp(): void {
-			
-			parent::setUp(); 
-			
+
+			parent::setUp();
+
 			/** @var CacheManager $cacheManager */
 			$cacheManager = app('cache');
-			
+
 			$this->cache = $cacheManager->store();
 		}
 
@@ -42,21 +42,21 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(1, $nextAvail);
 			$this->assertLessThanOrEqual(1, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
@@ -70,7 +70,7 @@
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(1, $nextAvail);
 			$this->assertLessThanOrEqual(1, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
@@ -82,13 +82,13 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(1, $nextAvail);
 			$this->assertLessThanOrEqual(1, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
@@ -100,21 +100,21 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(1, $nextAvail);
 			$this->assertLessThanOrEqual(1, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
@@ -125,7 +125,7 @@
 
 		public function testTakeEstimate_1token_rate2_burst5() {
 
-			$bucket = new TokenBucket($this->cache,'b1', 2, 5, 4);
+			$bucket = new TokenBucket($this->cache, 'b1', 2, 5, 4);
 
 			Carbon::setTestNow(Carbon::now());
 
@@ -133,21 +133,21 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(1, $nextAvail);
 			$this->assertLessThanOrEqual(1, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
@@ -159,13 +159,13 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(1, $nextAvail);
 			$this->assertLessThanOrEqual(1, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
@@ -177,21 +177,21 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(1, $nextAvail);
 			$this->assertLessThanOrEqual(1, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
@@ -203,25 +203,25 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(1, $nextAvail);
 			$this->assertLessThanOrEqual(1, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
@@ -232,7 +232,7 @@
 
 		public function testTakeEstimate_1token_rate05_burst2() {
 
-			$bucket = new TokenBucket($this->cache,'b1', 0.5, 2, 4);
+			$bucket = new TokenBucket($this->cache, 'b1', 0.5, 2, 4);
 
 			Carbon::setTestNow(Carbon::now());
 
@@ -240,21 +240,21 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(2, $nextAvail);
 			$this->assertLessThanOrEqual(2, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability());
@@ -276,7 +276,7 @@
 			$this->assertGreaterThan(1, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(2, $nextAvail);
 			$this->assertLessThanOrEqual(2, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability());
@@ -290,7 +290,7 @@
 			$this->assertGreaterThan(1, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(2, $nextAvail);
 			$this->assertLessThanOrEqual(2, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability());
@@ -302,13 +302,13 @@
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(true, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability());
 			$this->assertLessThanOrEqual(2, $nextAvail);
 			$this->assertLessThanOrEqual(2, $bucket->estimateAvailability());
-			
+
 			$this->assertSame(false, $bucket->tryTake(1, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability());
@@ -327,22 +327,22 @@
 			$this->assertSame(true, $bucket->tryTake(2, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability(2));
-			
+
 			$this->assertSame(true, $bucket->tryTake(2, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability(2));
 			$this->assertLessThanOrEqual(2, $nextAvail);
 			$this->assertLessThanOrEqual(2, $bucket->estimateAvailability(2));
-			
+
 			$this->assertSame(false, $bucket->tryTake(), $nextAvail);
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability(2));
 			$this->assertLessThanOrEqual(2, $nextAvail);
 			$this->assertLessThanOrEqual(2, $bucket->estimateAvailability(2));
 
-			
+
 			Carbon::setTestNow(Carbon::now()->addSecond());
-			
+
 			$this->assertSame(false, $bucket->tryTake(2, $nextAvail));
 			$this->assertGreaterThan(0, $nextAvail);
 			$this->assertGreaterThan(0, $bucket->estimateAvailability(2));
@@ -356,7 +356,7 @@
 			$this->assertGreaterThan(1, $bucket->estimateAvailability(2));
 			$this->assertLessThanOrEqual(2, $nextAvail);
 			$this->assertLessThanOrEqual(2, $bucket->estimateAvailability(2));
-			
+
 			$this->assertSame(false, $bucket->tryTake());
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability(2));
@@ -368,13 +368,13 @@
 			$this->assertSame(true, $bucket->tryTake(2, $nextAvail));
 			$this->assertSame(0.0, $nextAvail);
 			$this->assertSame(0.0, $bucket->estimateAvailability(2));
-			
+
 			$this->assertSame(true, $bucket->tryTake(2, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability(2));
 			$this->assertLessThanOrEqual(2, $nextAvail);
 			$this->assertLessThanOrEqual(2, $bucket->estimateAvailability(2));
-			
+
 			$this->assertSame(false, $bucket->tryTake(2, $nextAvail));
 			$this->assertGreaterThan(1, $nextAvail);
 			$this->assertGreaterThan(1, $bucket->estimateAvailability(2));
@@ -384,28 +384,28 @@
 		}
 
 		public function testTryTake_tokensGreaterThanBurst() {
-			
+
 			$bucket = new TokenBucket($this->cache, 'b1', 1, 4);
-			
+
 			$this->expectException(InvalidArgumentException::class);
 			$bucket->tryTake(5);
-			
+
 		}
-		
+
 		public function testTryTake_differentNamesUseIndependentBuckets() {
-			
+
 			$bucketA = new TokenBucket($this->cache, 'b1', 1, 4, 1);
 			$bucketB = new TokenBucket($this->cache, 'b2', 1, 4, 1);
-			
+
 			$this->assertSame(true, $bucketA->tryTake());
 			$this->assertSame(true, $bucketB->tryTake());
 		}
-		
+
 		public function testTryTake_sameNamesUseSameBucket() {
-			
+
 			$bucketA = new TokenBucket($this->cache, 'b1', 1, 4, 1);
 			$bucketB = new TokenBucket($this->cache, 'b1', 1, 4, 1);
-			
+
 			$this->assertSame(true, $bucketA->tryTake());
 			$this->assertSame(false, $bucketB->tryTake());
 		}
@@ -413,19 +413,19 @@
 		public function testTryTake_withCacheSupportingLocking() {
 
 			$this->cache = new \Illuminate\Cache\Repository(new ArrayStore());
-			
-			if (! ($this->cache->getStore() instanceof LockProvider))
+
+			if (!($this->cache->getStore() instanceof LockProvider))
 				$this->markTestSkipped('Precondition failed: The chosen cache must support locking.');
 
 			$bucket = new TokenBucket($this->cache, 'b1', 1, 4, 1);
 
 			$this->assertSame(true, $bucket->tryTake());
 		}
-		
+
 		public function testTryTake_withNotCacheSupportingLocking() {
-			
+
 			$this->cache = new \Illuminate\Cache\Repository(new TokenBucketTestCacheStoreWithoutLocking());
-			
+
 			if ($this->cache->getStore() instanceof LockProvider)
 				$this->markTestSkipped('Precondition failed: The chosen cache must not support locking.');
 
@@ -433,33 +433,33 @@
 
 			$this->assertSame(true, $bucket->tryTake());
 		}
-		
+
 		public function testEstimateAvailability_tokensGreaterThanBurst() {
-			
+
 			$bucket = new TokenBucket($this->cache, 'b1', 1, 4);
-			
+
 			$this->expectException(InvalidArgumentException::class);
 			$bucket->estimateAvailability(5);
-			
+
 		}
-		
+
 		public function testEstimateAvailability_initializesBucket() {
-			
+
 			$bucket = new TokenBucket($this->cache, 'b1', 1, 4);
-			
+
 			// this call should initialize the bucket
 			$this->assertGreaterThan(0, $bucket->estimateAvailability());
-			
+
 			Carbon::setTestNow(Carbon::now()->addSeconds(2));
-			
+
 			// this call now should see a filled bucket
 			$this->assertSame(0.0, $bucket->estimateAvailability());
-			
+
 		}
 
 		public function testResetBucket() {
 
-			$bucket = new TokenBucket($this->cache,'b1', 1, 4, 4);
+			$bucket = new TokenBucket($this->cache, 'b1', 1, 4, 4);
 
 			Carbon::setTestNow(Carbon::now());
 
@@ -480,7 +480,7 @@
 
 		public function testResetBucket_withTokenCountSpecified() {
 
-			$bucket = new TokenBucket($this->cache,'b1', 1, 4, 4);
+			$bucket = new TokenBucket($this->cache, 'b1', 1, 4, 4);
 
 			Carbon::setTestNow(Carbon::now());
 
@@ -496,8 +496,49 @@
 			$this->assertSame(false, $bucket->tryTake());
 
 		}
+
+
+		public function testPutTokens_fillsUpToBurstSize() {
+
+			$bucket = new TokenBucket($this->cache, 'b1', 1, 4, 0);
+			
+			$this->assertSame($bucket, $bucket->putTokens(5));
+
+			Carbon::setTestNow(Carbon::now());
+
+			$this->assertSame(true, $bucket->tryTake());
+			$this->assertSame(true, $bucket->tryTake());
+			$this->assertSame(true, $bucket->tryTake());
+			$this->assertSame(true, $bucket->tryTake());
+			$this->assertSame(false, $bucket->tryTake());
+
+		}
+		
+		
+		public function testPutTokens_doesNotAffectFillTimer() {
+
+			$bucket = new TokenBucket($this->cache, 'b1', 0.5, 4, 0);
+			
+			Carbon::setTestNow(Carbon::now());
+			
+			$this->assertSame(false, $bucket->tryTake());
+			
+			Carbon::setTestNow(Carbon::now()->addSecond());
+			
+			$this->assertSame($bucket, $bucket->putTokens(2));
+
+			Carbon::setTestNow(Carbon::now()->addSecond());
+
+			$this->assertSame(true, $bucket->tryTake());
+			$this->assertSame(true, $bucket->tryTake());
+			$this->assertSame(true, $bucket->tryTake());
+			$this->assertSame(false, $bucket->tryTake());
+
+		}
+		
+		
 	}
-	
+
 	class TokenBucketTestCacheStoreWithoutLocking extends TaggableStore
 	{
 		use InteractsWithTime, RetrievesMultipleKeys;

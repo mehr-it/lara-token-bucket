@@ -47,6 +47,14 @@ $bucket->tryTake(2, $secUntilAvailableNext);
 $secUntilAvailableNext = $bucket->estimateAvailability(3);
 ```
 
+### Putting tokens back
+Sometimes, you might have taken a token which you didn't need. You
+can give tokens back to buckets without affecting the time-based filling:
+
+```php
+// give back 2 tokens
+$bucket->putTokens(2);
+```
 
 ### Predefined buckets
 
