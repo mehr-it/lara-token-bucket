@@ -32,7 +32,7 @@
         "MehrIt\\LaraTokenBucket\\Provider\\TokenBucketServiceProvider"
       ],
       "aliases": {
-        "Assets": "MehrIt\\LaraTokenBucket\\Facades\\TokenBucket"
+        "TokenBucket": "MehrIt\\LaraTokenBucket\\Facades\\TokenBucket"
       }
     }
   }
